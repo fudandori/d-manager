@@ -2,8 +2,9 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js';
 
 import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js'
-import { getDatabase, ref, child, get } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js'
+import { getDatabase, ref, child, get, push } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js'
 
+const LEDGER = 'ledger'
 let dbRef = null
 
 const init = () => {
@@ -28,13 +29,15 @@ const init = () => {
 
     dbRef = ref(getDatabase());
 
+    // Listeners
     document.getElementById('button1').addEventListener('click', book)
     document.getElementById('button2').addEventListener('click', girls)
     document.getElementById('button3').addEventListener('click', me)
+    document.getElementById('button4').addEventListener('click', writeLedger)
 }
 
 const book = () => {
-    get(child(dbRef, 'book'))
+    get(child(dbRef, LEDGER))
         .then((snapshot) => {
             if (!snapshot.exists()) {
                 console.log('No data available')
@@ -50,6 +53,8 @@ const book = () => {
 
 }
 const girls = () => {
+
+
     get(child(dbRef, 'girls'))
         .then((snapshot) => {
             if (!snapshot.exists()) {
@@ -79,6 +84,16 @@ const me = () => {
         }).catch((error) => {
             console.error(error);
         });
+
+}
+
+const writeLedger = () => {
+    push(child(dbRef, LEDGER), {
+        time: new Date().toISOString(),
+        concept: 'plancha',
+        in: 15,
+        out: 45
+    })
 
 }
 

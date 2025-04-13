@@ -15,10 +15,51 @@
         <button id="button1">LIBRO</button>
         <button id="button2">CHICAS</button>
         <button id="button3">DONA</button>
+        <button id="button4">LEDGER UP</button>
     </div>
     <div id="canvas">
 
+
+
     </div>
+
+    <div id="ledger-form">
+
+        <form id="formulario">
+            <label for="concepto">Concepto:</label>
+            <input type="text" id="concepto" name="concepto" required><br><br>
+
+            <label for="debe">Debe:</label>
+            <input type="number" id="debe" name="debe" required><br><br>
+
+            <label for="haber">Haber:</label>
+            <input type="number" id="haber" name="haber" required><br><br>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        const formulario = document.getElementById('formulario');
+
+        formulario.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevenir el envío tradicional
+            getFormData();
+        });
+
+        const getFormData = () => {
+            const concepto = document.getElementById('concepto').value;
+            const debe = document.getElementById('debe').value;
+            const haber = document.getElementById('haber').value;
+
+            console.log("Datos del formulario:");
+            console.log(`Concepto: ${concepto}`);
+            console.log(`Debe: ${debe}`);
+            console.log(`Haber: ${haber}`);
+
+            // Aquí puedes hacer lo que necesites con los datos
+        };
+    </script>
 </body>
 
 </html>
