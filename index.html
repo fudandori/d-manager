@@ -11,18 +11,17 @@
 </head>
 
 <body>
-    <div class="header">
-        <button id="button1">LIBRO</button>
-        <button id="button2">CHICAS</button>
-        <button id="button3">DONA</button>
-        <button id="button4">LEDGER UP</button>
+    <div id="header">
+        <button type="button" class="header-button" id="button1">LIBRO</button>
+        <button type="button" class="header-button" id="button2">CHICAS</button>
+        <button type="button" class="header-button" id="button3">DONA</button>
+        <button type="button" class="header-button" id="button4">LEDGER UP</button>
     </div>
     <div id="canvas">
 
-
+        
 
     </div>
-
     <div id="ledger-form">
 
         <form id="formulario">
@@ -39,6 +38,8 @@
             <button type="button" onclick="unpop('ledger-form')">Cancelar</button>
         </form>
     </div>
+
+    <canvas id="touchpad"></canvas>
 
     <script>
         const formulario = document.getElementById('formulario');

@@ -6,6 +6,8 @@ import { getDatabase, ref, child, get, push } from 'https://www.gstatic.com/fire
 
 const LEDGER = 'ledger'
 let dbRef = null
+let canvas = null
+let aux = null
 
 const init = () => {
     const firebaseConfig = {
@@ -28,15 +30,16 @@ const init = () => {
         });
 
     dbRef = ref(getDatabase());
+    canvas = document.getElementById('canvas')
 
     // Listeners
-    document.getElementById('button1').addEventListener('click', book)
+    document.getElementById('button1').addEventListener('click', ledger)
     document.getElementById('button2').addEventListener('click', girls)
     document.getElementById('button3').addEventListener('click', me)
     document.getElementById('button4').addEventListener('click', writeLedger)
 }
 
-const book = () => {
+const ledger = () => {
     get(child(dbRef, LEDGER))
         .then((snapshot) => {
             if (!snapshot.exists()) {
@@ -44,10 +47,31 @@ const book = () => {
                 return
             }
 
-            document.getElementById('ledger-form').classList.add('visible')
+            aux = snapshot.val()
+            // document.getElementById('ledger-form').classList.add('visible')
+
+            canvas.innerHTML = ''
+
+            const grid = document.createElement('div')
+            grid.classList.add('grid', 'ledger')
+
+            spawnHeader(grid, 'FECHA', 'CONCEPTO', 'DEBE', 'HABER', 'SALDO')
+
+            let acc = 0
+            Object.values(aux).forEach((o,i) => {
+                acc += o.in - o.out
+                const date = formatDate(o.time)
+                insertLedgerGrid(grid, date, o.concept, o.in, o.out, acc)
+            })
 
 
-        }).catch((error) => {
+            canvas.appendChild(grid)
+        }
+
+
+
+
+        ).catch((error) => {
             console.error(error);
         });
 
@@ -91,10 +115,38 @@ const writeLedger = () => {
     push(child(dbRef, LEDGER), {
         time: new Date().toISOString(),
         concept: 'plancha',
-        in: 15,
-        out: 45
+        in: 500,
+        out: Math.floor(Math.random() * 50)
     })
 
+}
+
+const formatDate = (str) => {
+    const date = new Date(str);
+
+    const d = String(date.getDate()).padStart(2, '0');
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const y = String(date.getFullYear()).slice(-2);
+
+    return `${d}/${m}/${y}`;
+};
+
+const insertGrid = (grid, ...str) => {
+    str.forEach((text) => grid.appendChild(Object.assign(document.createElement('span'), { textContent: text })))
+}
+
+const spawnHeader = (grid, ...headers) => {
+    headers.forEach((text) => grid.appendChild(Object.assign(document.createElement('strong'), { textContent: text })))
+}
+
+const insertLedgerGrid = (grid, ...str) => {
+    str.forEach((v, i) => {
+        const span = document.createElement('span')
+        span.textContent = v
+
+        if (i % 4 === 0 && v < 0) span.style.backgroundColor = 'darkred'
+        grid.appendChild(span)
+    })
 }
 
 init()
