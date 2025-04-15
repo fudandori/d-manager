@@ -20,7 +20,7 @@ const init = () => {
 
     initializeApp(firebaseConfig);
     signInWithEmailAndPassword(getAuth(), 'admin@fudan.com', 'kokokoko')
-        .then(alert('signed in!'))
+        .then(console.log('signed in!'))
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -44,7 +44,7 @@ const book = () => {
                 return
             }
 
-            document.getElementById('canvas').innerHTML = JSON.stringify(snapshot.val())
+            document.getElementById('ledger-form').classList.add('visible')
 
 
         }).catch((error) => {

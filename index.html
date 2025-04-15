@@ -36,6 +36,7 @@
             <input type="number" id="haber" name="haber" required><br><br>
 
             <button type="submit">Enviar</button>
+            <button type="button" onclick="unpop('ledger-form')">Cancelar</button>
         </form>
     </div>
 
@@ -59,6 +60,10 @@
 
             // Aquí puedes hacer lo que necesites con los datos
         };
+
+        const unpop = (id) => {
+            document.getElementById(id).classList.remove('visible')
+        }
     </script>
 </body>
 
