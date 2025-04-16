@@ -36,7 +36,7 @@ const init = () => {
     document.getElementById('button1').addEventListener('click', ledger)
     document.getElementById('button2').addEventListener('click', girls)
     document.getElementById('button3').addEventListener('click', me)
-    document.getElementById('button4').addEventListener('click', writeLedger)
+    //document.getElementById('button4').addEventListener('click', writeLedger)
 }
 
 const ledger = () => {
@@ -55,10 +55,10 @@ const ledger = () => {
             const grid = document.createElement('div')
             grid.classList.add('grid', 'ledger')
 
-            spawnHeader(grid, 'FECHA', 'CONCEPTO', 'DEBE', 'HABER', 'SALDO')
+            spawnHeader(grid, 'calendar', 'pen', 'arrowdown', 'arrowred', 'money')
 
             let acc = 0
-            Object.values(aux).forEach((o,i) => {
+            Object.values(aux).forEach((o, i) => {
                 acc += o.in - o.out
                 const date = formatDate(o.time)
                 insertLedgerGrid(grid, date, o.concept, o.in, o.out, acc)
@@ -136,7 +136,16 @@ const insertGrid = (grid, ...str) => {
 }
 
 const spawnHeader = (grid, ...headers) => {
-    headers.forEach((text) => grid.appendChild(Object.assign(document.createElement('strong'), { textContent: text })))
+
+    headers.forEach((img) => {
+        const span = document.createElement('span')
+        span.className = 'grid-header'
+        span.style.backgroundImage = `url(assets/${img}.png)`
+        span.textContent = 'H'
+
+        grid.appendChild(span)
+    })
+
 }
 
 const insertLedgerGrid = (grid, ...str) => {
