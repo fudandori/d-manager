@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dona Manager</title>
 
     <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script type="module" src="./firebase.js"></script>
 </head>
 
@@ -19,52 +20,34 @@
     </div>
     <div id="canvas">
 
-        
+
 
     </div>
-    <div id="ledger-form">
+    <div id="ledger-form-container" class="fcenter">
 
-        <form id="formulario">
+        <form id="ledger-form">
             <label for="concepto">Concepto:</label>
-            <input type="text" id="concepto" name="concepto" required><br><br>
+            <input type="text" id="concept" name="concept" required>
 
             <label for="debe">Debe:</label>
-            <input type="number" id="debe" name="debe" required><br><br>
+            <input type="number" id="in" name="in" required>
 
             <label for="haber">Haber:</label>
-            <input type="number" id="haber" name="haber" required><br><br>
+            <input type="number" id="out" name="out" required>
 
-            <button type="submit">Enviar</button>
-            <button type="button" onclick="unpop('ledger-form')">Cancelar</button>
         </form>
+        <div class="form-button-container fcenter" style="margin-top: 1em;">
+            <button type="button" id="send-ledger" class="form-button fcenter"><i class="material-icons" style="color: green;font-size: 3em;">send</i></button>
+            <button type="button" id="cancel-ledger" class="form-button fcenter"><i class="material-icons" style="color: red;font-size: 3em;">cancel</i></button>
+        </div>
     </div>
 
     <canvas id="touchpad"></canvas>
 
     <script>
-        const formulario = document.getElementById('formulario');
 
-        formulario.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevenir el envío tradicional
-            getFormData();
-        });
 
-        const getFormData = () => {
-            const concepto = document.getElementById('concepto').value;
-            const debe = document.getElementById('debe').value;
-            const haber = document.getElementById('haber').value;
 
-            console.log("Datos del formulario:");
-            console.log(`Concepto: ${concepto}`);
-            console.log(`Debe: ${debe}`);
-            console.log(`Haber: ${haber}`);
-
-            // Aquí puedes hacer lo que necesites con los datos
-        };
-
-        const unpop = (id) => {
-            document.getElementById(id).classList.remove('visible')
-        }
     </script>
 </body>
 
