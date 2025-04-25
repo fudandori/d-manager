@@ -61,7 +61,7 @@ input {
   visibility: hidden;
 }
 
-#ledger-form-container {
+.form-container {
   flex-direction: column;
   position: fixed;
   width: 100%;
@@ -74,7 +74,7 @@ input {
   transition: all linear 0.5s;
 }
 
-#ledger-form-container.visible {
+.visible {
   opacity: 1;
   visibility: visible;
 }
@@ -101,6 +101,10 @@ input {
   justify-content: end;
   padding: 8px 2px;
   border: 1px solid black;
+}
+
+.girls {
+  grid-template-columns: repeat(5, auto);
 }
 
 .ledger {
